@@ -1,5 +1,7 @@
 html {
-  font-size: 14px;
+  --a-font-size: 14px;
+  font-size: var(--a-font-size);
+  margin-top: 30pt;
 }
 
 @media (min-width: 768px) {
@@ -15,4 +17,22 @@ html {
 
 body {
   margin-bottom: 60px;
+}
+
+button {
+  width: calc(var(--a-font-size)*10);
+  height: calc(var(--a-font-size)*4);
+  font-size: calc(var(--a-font-size)*2);
+  border: none;
+  color: #ddd;
+  background: #444;
+  margin: 30px;
+  border-radius: 4px;
+  transition: all 0.0s;
+}
+
+button:hover {
+  background: #d9ff00;
+  color: #000;
+  transition: all 0.5s;
 }

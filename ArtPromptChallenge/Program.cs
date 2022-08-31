@@ -1,3 +1,4 @@
+using ArtPromptChallenge.Controllers;
 namespace ArtPromptChallenge {
     public class Program {
         public static void Main(string[] args) {
@@ -5,6 +6,10 @@ namespace ArtPromptChallenge {
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+                        builder.Services.AddEndpointsApiExplorer();
+
+                        builder.Services.AddSwaggerGen();
 
             var app = builder.Build();
 
@@ -15,7 +20,7 @@ namespace ArtPromptChallenge {
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             app.UseRouting();
@@ -26,6 +31,12 @@ namespace ArtPromptChallenge {
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}"
             );
+            app.MapControllerRoute(
+                name: "apiEndpoint",
+                pattern: "{controller=ApiEndpoint}/api/{action=Empty}/{query?}"
+            );
+
+                        app.MapPromptFieldsResponseModelEndpoints();
 
             app.Run();
         }

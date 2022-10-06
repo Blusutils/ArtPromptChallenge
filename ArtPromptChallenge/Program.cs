@@ -7,9 +7,9 @@ namespace ArtPromptChallenge {
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
-                        builder.Services.AddEndpointsApiExplorer();
+            builder.Services.AddEndpointsApiExplorer();
 
-                        builder.Services.AddSwaggerGen();
+            builder.Services.AddSwaggerGen();
 
             var app = builder.Build();
 
@@ -17,7 +17,7 @@ namespace ArtPromptChallenge {
             if (!app.Environment.IsDevelopment()) {
                 app.UseExceptionHandler("/Home/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
+                //app.UseHsts();
             }
 
             //app.UseHttpsRedirection();
@@ -36,7 +36,7 @@ namespace ArtPromptChallenge {
                 pattern: "{controller=ApiEndpoint}/api/{action=Empty}/{query?}"
             );
 
-                        app.MapPromptFieldsResponseModelEndpoints();
+            app.MapPromptFieldsResponseModelEndpoints();
 
             app.Run();
         }

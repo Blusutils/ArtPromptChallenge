@@ -18,16 +18,21 @@
         const mat = new THREE.MeshBasicMaterial( { color: 0xff0000 } );
         mesh = new THREE.Mesh(stl, mat);
         scene.add(mesh);
-        setInterval(() => {mesh.rotation.y += 0.01;}, 10)
+        mesh.scale.x = 0.1;
+        mesh.scale.y = 0.1;
+        mesh.scale.z = 0.1;
+        setInterval(() => {mesh.rotation.y += 0.001;}, 1)
     }, undefined, function (error) {
         console.error(error);
     });
 
-    camera.position.z = 5;
+
+    camera.position.z = 0;
     document.body.appendChild(renderer.domElement);
     function animate() {
         requestAnimationFrame(animate);
         renderer.render(scene, camera);
     }
     animate();
+
 </script>

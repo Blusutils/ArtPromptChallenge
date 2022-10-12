@@ -31,12 +31,8 @@ namespace ArtPromptChallenge {
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}"
             );
-            app.MapControllerRoute(
-                name: "apiEndpoint",
-                pattern: "{controller=ApiEndpoint}/api/{action=Empty}/{query?}"
-            );
 
-            app.MapPromptFieldsResponseModelEndpoints();
+            app.MapControllers();
 
             app.Run();
         }

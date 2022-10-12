@@ -29,8 +29,9 @@ function smoothGlare(elem, glareColor = "#fff", time = "0.4s") {
 function clicked() {
 	//let timer = setInterval(frame, 700);
 
-	fetch("/api/generate?genId=0", { method: "GET" }).then((r) => {
+	fetch("/api/prompts/generate?genId=0", { method: "GET" }).then((r) => {
 		r.json().then((resp) => {
+			resp = resp.variants;
 			text.innerHTML = "In a ";
 			const world = createRandWordElem(resp.world);
 			text.innerHTML += world;
@@ -39,7 +40,7 @@ function clicked() {
 			const quality = createRandWordElem(resp.quality);
 			text.innerHTML += quality + " ";
 
-			const colorArr = resp.accent_color;
+			const colorArr = resp.color;
 			const colorElem = "<span class='colorglare'>" + colorArr[0] + "</span>";
 			text.innerHTML += colorElem;
 

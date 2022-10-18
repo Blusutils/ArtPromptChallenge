@@ -47,7 +47,7 @@ function clicked() {
 			const motive = createRandWordElem(resp.motive);
 			text.innerHTML += " " + motive + ", ";
 
-			const artStyle = createRandWordElem(resp.art_style);
+			const artStyle = createRandWordElem(resp.artStyle);
 			text.innerHTML += "created with " + artStyle + " art style ruleset.";
 
 			setTimeout(() => {

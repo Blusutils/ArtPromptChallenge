@@ -1,4 +1,3 @@
-using ArtPromptChallenge.Controllers;
 namespace ArtPromptChallenge {
     public class Program {
         public static void Main(string[] args) {

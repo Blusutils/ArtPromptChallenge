@@ -1,9 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
 using MongoDB.Driver;
 
-namespace ArtPromptChallenge.Controllers {
+namespace ArtPromptChallenge.Controllers.API {
     [Route("/api/prompts")]
     [ApiController]
     public class PromptGen : ControllerBase {
@@ -75,29 +74,29 @@ namespace ArtPromptChallenge.Controllers {
     };
         List<Dictionary<string, object>> cache = new List<Dictionary<string, object>>();
         [Route("generate")]
-        public async Task<string> GenerateArtPrompt(string genId="0") {
+        public async Task<IActionResult> GenerateArtPrompt(string genId = "0") {
             var trg = cache.Find((o) => { return o["_id"] as string == genId; });
             if (trg == null) {
                 var d = new Dictionary<string, object>();
                 var coll = Config.Database.GetCollection<BsonDocument>("prompts");
-                var cur =  await coll.FindAsync(new BsonDocument("_id", genId));
+                var cur = await coll.FindAsync(new BsonDocument("_id", genId));
                 try {
                     foreach (var a in cur.First().ToDictionary()) {
                         d[a.Key] = a.Value;
                     }
                 } catch (InvalidOperationException) {
-                    return "{\"error\":5001,\"message\":\"unable to find generator with id " + genId + "\"}";
+                    return NotFound("{\"error\":4004,\"message\":\"unable to find generator with id " + genId + "\"}");
                 }
                 cache.Add(d);
             }
             var rnd = new Random();
             T GetRndEntry<T>(T[] inp) {
-                return inp[rnd.Next(0, inp.Length - 1)];
+                return inp[rnd.Next(0, inp.Length-1)];
             }
             trg = cache.Find((o) => { return o["_id"] as string == genId; });
             // if doc not found
             if (trg == null) {
-                return "{\"error\":5001,\"message\":\"unable to find generator with id "+genId+"\"}";
+                return NotFound("{\"error\":4004,\"message\":\"unable to find generator with id " + genId + "\"}");
             }
             Dictionary<string, object> outDict = new();
             outDict["variants"] = new Dictionary<string, object>();
@@ -105,7 +104,7 @@ namespace ArtPromptChallenge.Controllers {
                 (outDict["variants"] as Dictionary<string, object>)[kv.Key] = GetRndEntry(kv.Value as object[]);
             }
             outDict["templateString"] = trg["templateString"] as string;
-            return System.Text.Json.JsonSerializer.Serialize(outDict);
+            return Ok(outDict);
         }
     }
 }

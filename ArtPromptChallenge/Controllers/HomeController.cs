@@ -1,6 +1,6 @@
-﻿using ArtPromptChallenge.Models;
+﻿using System.Diagnostics;
+using ArtPromptChallenge.Models;
 using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
 
 namespace ArtPromptChallenge.Controllers {
     public class HomeController : Controller {
